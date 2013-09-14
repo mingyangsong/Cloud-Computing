@@ -3,21 +3,33 @@
 import sys
 
 def main(argv):
-    (last_title,sum,dates)=(None,0,"")
-
+    dates = [0] * 30
+    (last_title, sum)=(None,0)
+    
     for line in sys.stdin:
-	(cur_title, value)=line.strip().split('\t')
-	(views, date)=value.strip().split('&')
+        (cur_title, value)=line.strip().split('\t')
+        (date, views)=value.strip().split('&')
 
-	if last_title and last_title!=cur_title:
-	    print str(sum)+"\t"+last_title+"\t"+dates
-	    
- 	    (last_title, sum, dates)=(cur_title, int(views), date+"\t")
-	else:
-	    (last_title, sum, dates)=(cur_title, sum+int(views), dates+date+"\t")
+        if last_title and last_title!=cur_title:
+            date_views=""
+            for i in dates:
+                date_views+="\t"+str(i)
+            print str(sum)+"\t"+last_title+date_views
+            
+            hour_views=int(views)
+            (last_title, sum)=(cur_title, hour_views)
+            dates[int(date)-1]+=hour_views
+        
+        else:
+            hour_views=int(views)
+            (last_title, sum)=(cur_title, sum+hour_views)
+            dates[int(date)-1]+=hour_views
 
     if last_title:
-	print str(sum)+"\t"+last_title+"\t"+dates
+        date_views=""
+        for i in dates:
+            date_views+="\t"+str(i)
+        print str(sum)+"\t"+last_title+date_views
 
 if __name__=='__main__':
     main(sys.argv)

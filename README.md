@@ -1,4 +1,4 @@
 Cloud-Computing
 ===============
 
-Cloud-Computing Codes
+Cloud Computing Codes

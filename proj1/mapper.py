@@ -4,8 +4,7 @@ import sys
 import os
 
 def main(argv):
-    date=str(os.environ["map.input.file"].split('-')[2])
-    date=date[-2:]
+    date=os.environ["map_input_file"].split('-')[2][-2:]
     
     for line in sys.stdin:
         if line.startswith("en "):
